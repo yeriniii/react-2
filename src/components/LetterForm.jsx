@@ -1,6 +1,4 @@
-import React, { useState } from "react";
 import styled from "styled-components";
-import fakeData from "fakeData.json";
 
 const LetterForm = ({
   nickname,
@@ -27,8 +25,18 @@ const LetterForm = ({
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    addFanLetter();
-    alert("hi");
+    if (nickname === "" || content === "") {
+      alert("팬 레터 폼을 모두 입력해주세요");
+    } else if (nickname.length > 20) {
+      alert("닉네임 20글자 초과입니다!");
+    } else if (content.length > 100) {
+      alert("내용 100자 초과입니다!");
+    } else {
+      addFanLetter();
+      setNickname("");
+      setContent("");
+      setSelectedMember("카리나");
+    }
   };
 
   return (

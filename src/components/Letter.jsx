@@ -1,10 +1,15 @@
 import React from "react";
 import styled from "styled-components";
 import default_profile from "../assets/default_profile.png";
+import { useNavigate } from "react-router-dom";
 
 function Letter({ Fandata }) {
+  const navigate = useNavigate();
   return (
-    <LetterWrapper key={Fandata.id}>
+    <LetterWrapper
+      key={Fandata.id}
+      onClick={() => navigate(`/letters/${Fandata.id}`)}
+    >
       <FanData>
         <FanImage>
           <img

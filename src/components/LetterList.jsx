@@ -1,5 +1,3 @@
-import React, { useState } from "react";
-import fakeData from "fakeData.json";
 import styled from "styled-components";
 import Letter from "./Letter";
 
