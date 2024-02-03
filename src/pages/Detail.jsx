@@ -2,13 +2,43 @@ import React from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import default_profile from "../assets/default_profile.png";
+import { useState } from "react";
 
-function Detail({ data }) {
+function Detail({ data, setData, setContent }) {
+  const [isEditing, setIsEditing] = useState(false);
+  const [editedContent, setEditedContent] = useState("");
   const { id } = useParams();
   const { avatar, nickname, createdAt, writedTo, content } = data.find(
     (item) => item.id === id
   );
   const navigate = useNavigate();
+
+  const deleteLetter = () => {
+    const isDelete = window.confirm("정말로 삭제하시겠습니까?");
+    if (!isDelete) return;
+    navigate(`/`);
+    setData((prevLetters) => {
+      return prevLetters.filter((letter) => letter.id !== id);
+    });
+  };
+  const handleEditClick = () => {
+    setIsEditing(true); // 수정 모드로 변경
+    setEditedContent(content);
+  };
+  const handleSaveClick = () => {
+    if (content === editedContent) {
+      alert("변경사항이 없습니다!");
+    } else {
+      const isModified = window.confirm("이대로 변경하시겠습니까?");
+      if (!isModified) return;
+      setIsEditing(false);
+    }
+    setData((prevData) =>
+      prevData.map((item) =>
+        item.id === id ? { ...item, content: editedContent } : item
+      )
+    );
+  };
   return (
     <>
       <HomeBtn>
@@ -27,11 +57,28 @@ function Detail({ data }) {
         <WritedTo>
           <p>To: {writedTo}</p>
         </WritedTo>
-        <NewContent>{content}</NewContent>
-        <ButtonWrapper>
-          <button>수정</button>
-          <button>삭제</button>
-        </ButtonWrapper>
+        {isEditing ? (
+          <>
+            <NewContent>
+              <textarea
+                value={editedContent}
+                onChange={(e) => setEditedContent(e.target.value)}
+              ></textarea>
+            </NewContent>
+            <ButtonWrapper>
+              <button onClick={handleSaveClick}>수정 완료</button>
+              <button onClick={() => setIsEditing(false)}>취소</button>
+            </ButtonWrapper>
+          </>
+        ) : (
+          <>
+            <NewContent>{content}</NewContent>
+            <ButtonWrapper>
+              <button onClick={handleEditClick}>수정</button>
+              <button onClick={() => deleteLetter()}>삭제</button>
+            </ButtonWrapper>
+          </>
+        )}
       </LetterDetailWrapper>
     </>
   );
@@ -79,12 +126,24 @@ const NewContent = styled.div`
   background-color: black;
   margin-top: 15px;
   color: white;
-  font-size: 20px;
+  font-size: 40px;
   font-weight: 400;
   width: 100%;
   height: 60%;
-  padding: 20px;
   border-radius: 8px;
+  letter-spacing: 3px;
+  textarea {
+    background-color: black;
+    color: white;
+    font-size: 40px;
+    font-weight: 400;
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+    padding: 0px;
+    margin: 0px;
+    border: none;
+  }
 `;
 const FanImage = styled.div`
   width: 110px;

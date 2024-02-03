@@ -7,9 +7,14 @@ const LetterList = ({ selectMember, data }) => {
   });
   return (
     <LetterListWrapper>
-      {filteredLetter.map((Fandata) => (
-        <Letter Fandata={Fandata}></Letter>
-      ))}
+      {filteredLetter.length > 0 ? (
+        filteredLetter.map((Fandata) => <Letter Fandata={Fandata}></Letter>)
+      ) : (
+        <p>
+          {selectMember}에게 남겨진 팬레터가 없습니다. 첫 번째 팬 레터의
+          주인공이 되어주세요!
+        </p>
+      )}
     </LetterListWrapper>
   );
 };
