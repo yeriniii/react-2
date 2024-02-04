@@ -6,7 +6,6 @@ import fakeData from "fakeData.json";
 import { useState } from "react";
 const Router = () => {
   const [data, setData] = useState(fakeData);
-  const [content, setContent] = useState("");
   return (
     <BrowserRouter>
       <Routes>
@@ -16,9 +15,7 @@ const Router = () => {
         ></Route>
         <Route
           path="letters/:id"
-          element={
-            <Detail data={data} setData={setData} setContent={setContent} />
-          }
+          element={<Detail data={data} setData={setData} />}
         ></Route>
       </Routes>
     </BrowserRouter>
