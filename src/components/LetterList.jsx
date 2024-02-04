@@ -1,10 +1,11 @@
-import { DataContext } from "context/DataContext";
 import styled from "styled-components";
 import Letter from "./Letter";
-import { useContext } from "react";
+
+import { useSelector } from "react-redux";
 
 const LetterList = ({ selectMember }) => {
-  const { data } = useContext(DataContext);
+  const data = useSelector((state) => state.data);
+
   const filteredLetter = data.filter((letter) => {
     return letter.writedTo === selectMember;
   });

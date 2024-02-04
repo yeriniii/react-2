@@ -3,14 +3,16 @@ import ReactDOM from "react-dom/client";
 import GlobalStyle from "./GlobalStyled";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import DataContextProvider from "context/DataContext";
+
+import store from "./redux/config/configStore";
+import { Provider } from "react-redux";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <DataContextProvider>
+  <Provider store={store}>
     <App />
     <GlobalStyle />
-  </DataContextProvider>
+  </Provider>
 );
 
 // If you want to start measuring performance in your app, pass a function

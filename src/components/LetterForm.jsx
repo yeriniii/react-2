@@ -1,24 +1,13 @@
-import { DataContext } from "context/DataContext";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
+import { useDispatch } from "react-redux";
+import { addLetter } from "../redux/modules/data";
 
 const LetterForm = () => {
+  const dispatch = useDispatch();
   const [nickname, setNickname] = useState("");
   const [content, setContent] = useState("");
   const [selectedMember, setSelectedMember] = useState("카리나");
-  const { data, setData } = useContext(DataContext);
-  const addFanLetter = () => {
-    setData([
-      ...data,
-      {
-        id: crypto.randomUUID(),
-        createdAt: Date(),
-        writedTo: selectedMember,
-        nickname,
-        content,
-      },
-    ]);
-  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -29,7 +18,15 @@ const LetterForm = () => {
     } else if (content.length > 100) {
       alert("내용 100자 초과입니다!");
     } else {
-      addFanLetter();
+      dispatch(
+        addLetter({
+          id: crypto.randomUUID(),
+          createdAt: Date(),
+          writedTo: selectedMember,
+          nickname,
+          content,
+        })
+      );
       setNickname("");
       setContent("");
       setSelectedMember("카리나");

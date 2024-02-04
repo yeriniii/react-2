@@ -1,12 +1,14 @@
-import { DataContext } from "context/DataContext";
-import React, { useContext } from "react";
+import React from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import default_profile from "../assets/default_profile.png";
 import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { deleteLetter, modifyLetter } from "../redux/modules/data";
 
 function Detail() {
-  const { data, setData } = useContext(DataContext);
+  const dispatch = useDispatch();
+  const data = useSelector((state) => state.data);
   const [isEditing, setIsEditing] = useState(false);
   const [editedContent, setEditedContent] = useState("");
   const { id } = useParams();
@@ -15,13 +17,11 @@ function Detail() {
   );
   const navigate = useNavigate();
 
-  const deleteLetter = () => {
+  const deletedLetter = () => {
     const isDelete = window.confirm("정말로 삭제하시겠습니까?");
     if (!isDelete) return;
     navigate(`/`);
-    setData((prevLetters) => {
-      return prevLetters.filter((letter) => letter.id !== id);
-    });
+    dispatch(deleteLetter(id));
   };
   const handleEditClick = () => {
     setIsEditing(true); // 수정 모드로 변경
@@ -35,11 +35,7 @@ function Detail() {
       if (!isModified) return;
       setIsEditing(false);
     }
-    setData((prevData) =>
-      prevData.map((item) =>
-        item.id === id ? { ...item, content: editedContent } : item
-      )
-    );
+    dispatch(modifyLetter({ id, editedContent }));
   };
   return (
     <>
@@ -77,7 +73,7 @@ function Detail() {
             <NewContent>{content}</NewContent>
             <ButtonWrapper>
               <button onClick={handleEditClick}>수정</button>
-              <button onClick={() => deleteLetter()}>삭제</button>
+              <button onClick={() => deletedLetter()}>삭제</button>
             </ButtonWrapper>
           </>
         )}

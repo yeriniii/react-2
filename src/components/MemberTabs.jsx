@@ -17,8 +17,6 @@ const MemberTabs = ({ setSelectMember, selectMember }) => {
 };
 const Wrapper = styled.ul`
   display: flex;
-  gap: 10px;
-  margin-top: 30px;
   background-color: gray;
   padding: 10px;
   width: 45%;
