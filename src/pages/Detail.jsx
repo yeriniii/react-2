@@ -4,7 +4,7 @@ import styled from "styled-components";
 import default_profile from "../assets/default_profile.png";
 import { useState } from "react";
 
-function Detail({ data, setData, setContent }) {
+function Detail({ data, setData }) {
   const [isEditing, setIsEditing] = useState(false);
   const [editedContent, setEditedContent] = useState("");
   const { id } = useParams();
