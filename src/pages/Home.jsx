@@ -5,26 +5,14 @@ import LetterList from "../components/LetterList";
 import { useState } from "react";
 import styled from "styled-components";
 
-function Home({ data, setData }) {
+function Home() {
   const [selectMember, setSelectMember] = useState("카리나");
-  const [nickname, setNickname] = useState("");
-  const [content, setContent] = useState("");
-  const [selectedMember, setSelectedMember] = useState("카리나");
 
   return (
     <Container>
       <Header selectMember={selectMember} setSelectMember={setSelectMember} />
-      <LetterForm
-        nickname={nickname}
-        setNickname={setNickname}
-        content={content}
-        setContent={setContent}
-        selectedMember={selectedMember}
-        setSelectedMember={setSelectedMember}
-        data={data}
-        setData={setData}
-      />
-      <LetterList selectMember={selectMember} data={data} />
+      <LetterForm />
+      <LetterList selectMember={selectMember} />
     </Container>
   );
 }

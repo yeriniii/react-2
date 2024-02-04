@@ -3,13 +3,14 @@ import ReactDOM from "react-dom/client";
 import GlobalStyle from "./GlobalStyled";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
+import DataContextProvider from "context/DataContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <>
+  <DataContextProvider>
     <App />
     <GlobalStyle />
-  </>
+  </DataContextProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function

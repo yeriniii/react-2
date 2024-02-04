@@ -1,15 +1,12 @@
+import { DataContext } from "context/DataContext";
+import { useContext, useState } from "react";
 import styled from "styled-components";
 
-const LetterForm = ({
-  nickname,
-  setNickname,
-  content,
-  setContent,
-  selectedMember,
-  setSelectedMember,
-  data,
-  setData,
-}) => {
+const LetterForm = () => {
+  const [nickname, setNickname] = useState("");
+  const [content, setContent] = useState("");
+  const [selectedMember, setSelectedMember] = useState("카리나");
+  const { data, setData } = useContext(DataContext);
   const addFanLetter = () => {
     setData([
       ...data,

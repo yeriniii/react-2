@@ -1,10 +1,12 @@
-import React from "react";
+import { DataContext } from "context/DataContext";
+import React, { useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import default_profile from "../assets/default_profile.png";
 import { useState } from "react";
 
-function Detail({ data, setData }) {
+function Detail() {
+  const { data, setData } = useContext(DataContext);
   const [isEditing, setIsEditing] = useState(false);
   const [editedContent, setEditedContent] = useState("");
   const { id } = useParams();
@@ -126,7 +128,7 @@ const NewContent = styled.div`
   background-color: black;
   margin-top: 15px;
   color: white;
-  font-size: 40px;
+  font-size: 30px;
   font-weight: 400;
   width: 100%;
   height: 60%;
@@ -135,7 +137,7 @@ const NewContent = styled.div`
   textarea {
     background-color: black;
     color: white;
-    font-size: 40px;
+    font-size: 30px;
     font-weight: 400;
     width: 100%;
     height: 100%;

@@ -1,7 +1,10 @@
+import { DataContext } from "context/DataContext";
 import styled from "styled-components";
 import Letter from "./Letter";
+import { useContext } from "react";
 
-const LetterList = ({ selectMember, data }) => {
+const LetterList = ({ selectMember }) => {
+  const { data } = useContext(DataContext);
   const filteredLetter = data.filter((letter) => {
     return letter.writedTo === selectMember;
   });
