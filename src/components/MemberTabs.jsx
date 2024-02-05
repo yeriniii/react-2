@@ -1,17 +1,22 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import styled, { css } from "styled-components";
+import { useSelector } from "react-redux";
+import { selectMember } from "../redux/modules/member";
 
-const MemberTabs = ({ setSelectMember, selectMember }) => {
+const MemberTabs = () => {
+  const dispatch = useDispatch();
+  const chooseMember = useSelector((state) => state.member);
   return (
     <Wrapper
       onClick={(e) => {
-        setSelectMember(e.target.textContent);
+        dispatch(selectMember(e.target.textContent));
       }}
     >
-      <Tab selectMember={selectMember}>카리나</Tab>
-      <Tab selectMember={selectMember}>윈터</Tab>
-      <Tab selectMember={selectMember}>닝닝</Tab>
-      <Tab selectMember={selectMember}>지젤</Tab>
+      <Tab chooseMember={chooseMember}>카리나</Tab>
+      <Tab chooseMember={chooseMember}>윈터</Tab>
+      <Tab chooseMember={chooseMember}>닝닝</Tab>
+      <Tab chooseMember={chooseMember}>지젤</Tab>
     </Wrapper>
   );
 };
@@ -27,7 +32,7 @@ const Wrapper = styled.ul`
 
 const Tab = styled.li`
   ${(props) => {
-    if (props.selectMember === props.children) {
+    if (props.chooseMember === props.children) {
       return css`
         background-color: gold;
         color: black;
